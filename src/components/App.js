@@ -11,8 +11,8 @@ const App = () => {
   });
 
   useEffect(() => {
-    document.addEventListener("keydown", arrowKeyPressed);
-  });
+    setBallPosition({ left: x, top: y });
+  }, [x, y]);
 
   const reset = () => {
     setRenderBall(false);
@@ -23,9 +23,24 @@ const App = () => {
       top: 0,
     });
   };
+  const arrowKeyPressed = (e) => {
+    if (e.keyCode == 39) {
+      setX((prev) => prev + 5);
+    }
+    if (e.keyCode == 37) {
+      setX((prev) => prev - 5);
+    }
+    if (e.keyCode == 40) {
+      setY((prev) => prev + 5);
+    }
+    if (e.keyCode == 38) {
+      setY((prev) => prev - 5);
+    }
+  };
 
   const start = () => {
     setRenderBall(true);
+    window.addEventListener("keydown", arrowKeyPressed);
   };
 
   const renderChoice = () => {
@@ -37,25 +52,6 @@ const App = () => {
         Start
       </button>
     );
-  };
-
-  const arrowKeyPressed = (e) => {
-    if (e.keyCode == 39 && renderBall) {
-      setX((prevState) => prevState + 5);
-      setBallPosition({ left: x });
-    }
-    if (e.keyCode == 37 && renderBall) {
-      setX((prevState) => prevState - 5);
-      setBallPosition({ left: x });
-    }
-    if (e.keyCode == 40 && renderBall) {
-      setY((prevState) => prevState + 5);
-      setBallPosition({ top: y });
-    }
-    if (e.keyCode == 38 && renderBall) {
-      setY((prevState) => prevState - 5);
-      setBallPosition({ top: y });
-    }
   };
 
   return (
